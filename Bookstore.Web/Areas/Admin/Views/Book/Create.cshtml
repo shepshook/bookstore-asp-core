@@ -1,0 +1,59 @@
+@model BookEditModel
+
+@{
+    ViewBag.Title = "Add new book";
+    
+    var publishersList = new List<SelectListItem>(
+        Model.Publishers.Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+    );
+    publishersList.Add(new SelectListItem("None", "None"));
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3>Add new book</h3>
+    </div>
+    <form asp-action="Edit" class="card-body">
+        <input asp-for="Id"/>
+        <div class="form-group">
+            <label asp-for="Title"></label>
+            <input asp-for="Title" class="form-control"/>
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <input asp-for="Description" class="form-control-plaintext"/>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublicationDate"></label>
+            <input asp-for="PublicationDate" class="form-control"/>
+            <span asp-validation-for="PublicationDate" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="PublisherId"></label>
+            <select asp-for="PublisherId" asp-items="publishersList" class="form-control"></select>
+            <span asp-validation-for="PublisherId" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Rating"></label>
+            <input asp-for="Rating" class="form-control"/>
+            <span asp-validation-for="Rating" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="CoverImage"></label>
+            <input asp-for="CoverImage" class="form-control"/>
+            <span asp-validation-for="CoverImage" class="text-danger"></span>
+        </div>
+        <input type="submit" class="btn btn-primary" value="Add"/>
+    </form>
+    <div class="card-footer text-right">
+        <a asp-action="List" class="btn btn-outline-primary">Home</a>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
+}

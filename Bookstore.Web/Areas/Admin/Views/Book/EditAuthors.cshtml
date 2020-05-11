@@ -1,0 +1,38 @@
+@model AuthorsEditModel
+
+@{
+    ViewBag.Title = "Edit authors"; 
+    var otherAuthors = new List<SelectListItem>(Model.OtherAuthors.Select(x => new SelectListItem(x.ToString(), x.Id.ToString())));
+}
+
+<div class="card">
+    <div class="card-header">
+        <h3>Edit authors</h3>
+    </div>
+    <div class="card-body">
+        @foreach (var author in Model.CurrentAuthors)
+        {    
+            <form asp-action="DeleteAuthor" class="mb-2">
+                <input asp-for="BookId"/>
+                <div class="d-flex flex-row w-25 justify-content-between">
+                    <label>@author</label>
+                    <input asp-for="AuthorId" value="@author.Id"/>
+                    <input type="submit" class="btn btn-outline-danger" value="Delete"/>
+                </div>
+            </form>
+        }
+        @if (otherAuthors.Count > 0)
+        {
+            <form asp-action="AddAuthor">
+                <input asp-for="BookId"/>
+                <div class="d-flex flex-row w-25 justify-content-between">
+                    <select asp-for="AuthorId" asp-items="otherAuthors"></select>
+                    <input type="submit" class="btn btn-primary" value="Add"/>
+                </div>
+            </form>
+        }
+    </div>
+    <div class="card-footer text-right">
+        <a asp-action="List" class="btn btn-outline-primary">Home</a>
+    </div>
+</div>
